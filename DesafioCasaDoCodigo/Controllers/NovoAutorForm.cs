@@ -10,5 +10,10 @@ namespace DesafioCasaDoCodigo.Controllers
         [Required]
         [Url]
         public string LinkGithub { get; set; }
+
+        public Autor NovoAutor()
+        {
+            return new Autor(Nome, LinkGithub);
+        }
     }
 }

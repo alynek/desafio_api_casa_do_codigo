@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DesafioCasaDoCodigo.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioCasaDoCodigo.Controllers
 {
@@ -6,11 +7,21 @@ namespace DesafioCasaDoCodigo.Controllers
     [ApiController]
     public class AutoresController : ControllerBase
     {
+        private DesafioContext _context;
+
+        public AutoresController(DesafioContext context)
+        {
+            _context = context;
+        }
+
         [Route("autor")]
         [HttpPost]
         public void NovoAutor([FromBody] NovoAutorForm form)
         {
-            System.Console.WriteLine("deu certo");
+            Autor novoAutor = form.NovoAutor();
+            System.Console.WriteLine(novoAutor);
+            _context.Autores.Add(novoAutor);
+            _context.SaveChanges();
         }
     }
 }
