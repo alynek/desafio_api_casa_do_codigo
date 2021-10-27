@@ -1,4 +1,4 @@
-﻿using DesafioCasaDoCodigo.Controllers;
+﻿using DesafioCasaDoCodigo.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioCasaDoCodigo.Data

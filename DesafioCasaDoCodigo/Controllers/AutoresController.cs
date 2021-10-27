@@ -1,4 +1,5 @@
 ﻿using DesafioCasaDoCodigo.Data;
+using DesafioCasaDoCodigo.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioCasaDoCodigo.Controllers

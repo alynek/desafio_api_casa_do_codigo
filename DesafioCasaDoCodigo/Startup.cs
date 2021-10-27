@@ -1,4 +1,5 @@
 using DesafioCasaDoCodigo.Data;
+using DesafioCasaDoCodigo.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace DesafioCasaDoCodigo
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Desafio Casa Do Codigo", Version = "v1" });
             });
+
+            services.AddScoped<IAutorRepository, AutorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

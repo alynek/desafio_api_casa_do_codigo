@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DesafioCasaDoCodigo.Controllers
+namespace DesafioCasaDoCodigo.Models
 {
     public class NovoAutorForm
     {
