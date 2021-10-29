@@ -1,5 +1,6 @@
 using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Repositories;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,7 @@ namespace DesafioCasaDoCodigo
             });
 
             services.AddScoped<IAutorRepository, AutorRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
