@@ -1,5 +1,6 @@
 ﻿using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Models;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
 
 namespace DesafioCasaDoCodigo.Repositories
 {

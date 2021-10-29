@@ -1,5 +1,6 @@
-﻿using DesafioCasaDoCodigo.Data;
-using DesafioCasaDoCodigo.Models;
+﻿using DesafioCasaDoCodigo.Models;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
+using DesafioCasaDoCodigo.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioCasaDoCodigo.Controllers
@@ -8,11 +9,11 @@ namespace DesafioCasaDoCodigo.Controllers
     [ApiController]
     public class AutoresController : ControllerBase
     {
-        private DesafioContext _context;
+        private IAutorRepository _autorRepository;
 
-        public AutoresController(DesafioContext context)
+        public AutoresController(IAutorRepository autorRepository)
         {
-            _context = context;
+            _autorRepository = autorRepository;
         }
 
         [Route("autor")]
@@ -20,9 +21,7 @@ namespace DesafioCasaDoCodigo.Controllers
         public void NovoAutor([FromBody] NovoAutorForm form)
         {
             Autor novoAutor = form.NovoAutor();
-            System.Console.WriteLine(novoAutor);
-            _context.Autores.Add(novoAutor);
-            _context.SaveChanges();
+            _autorRepository.Save(novoAutor);
         }
     }
 }
