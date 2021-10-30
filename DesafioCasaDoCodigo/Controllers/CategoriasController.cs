@@ -18,10 +18,13 @@ namespace DesafioCasaDoCodigo.Controllers
 
         [Route("categorias")]
         [HttpPost]
-        public void CriaCategoria([FromBody] NovaCategoriaForm form)
+        public IActionResult CriaCategoria([FromBody] NovaCategoriaForm form)
         {
             Categoria novaCategoria = new Categoria(form.Nome);
+
+            if (_categoriaRepository.CategoriaExiste(novaCategoria)) return BadRequest("Já existe uma categoria com esse nome");
             _categoriaRepository.Save(novaCategoria);
+            return CreatedAtAction(nameof(CriaCategoria), novaCategoria);
         }
     }
 }
