@@ -1,6 +1,6 @@
 ﻿using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
-using DesafioCasaDoCodigo.ViewModels;
+using DesafioCasaDoCodigo.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioCasaDoCodigo.Controllers
@@ -16,15 +16,15 @@ namespace DesafioCasaDoCodigo.Controllers
             _categoriaRepository = categoriaRepository;
         }
 
-        [Route("categorias")]
         [HttpPost]
-        public IActionResult CriaCategoria([FromBody] NovaCategoriaForm form)
+        public IActionResult AdicionaCategoria([FromBody] NovaCategoriaDto novaCategoria)
         {
-            Categoria novaCategoria = new Categoria(form.Nome);
+            Categoria categoria = new Categoria(novaCategoria.Nome);
 
-            if (_categoriaRepository.CategoriaExiste(novaCategoria)) return BadRequest("Já existe uma categoria com esse nome");
-            _categoriaRepository.Save(novaCategoria);
-            return CreatedAtAction(nameof(CriaCategoria), novaCategoria);
+            if (_categoriaRepository.CategoriaExiste(categoria)) return BadRequest("Já existe uma categoria com esse nome");
+
+            _categoriaRepository.Save(categoria);
+            return CreatedAtAction(nameof(AdicionaCategoria), categoria);
         }
     }
 }
