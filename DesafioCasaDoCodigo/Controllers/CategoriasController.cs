@@ -23,7 +23,7 @@ namespace DesafioCasaDoCodigo.Controllers
 
             if (_categoriaRepository.CategoriaExiste(categoria)) return BadRequest("Já existe uma categoria com esse nome");
 
-            _categoriaRepository.Save(categoria);
+            _categoriaRepository.Salva(categoria);
             return CreatedAtAction(nameof(AdicionaCategoria), categoria);
         }
     }

@@ -17,10 +17,11 @@ namespace DesafioCasaDoCodigo.Controllers
         }
 
         [HttpPost]
-        public void AdicionaAutor([FromBody] NovoAutorDto novoAutor)
+        public IActionResult AdicionaAutor([FromBody] NovoAutorDto novoAutor)
         {
             Autor autor = novoAutor.NovoAutor();
-            _autorRepository.Save(autor);
+            _autorRepository.Salva(autor);
+            return CreatedAtAction(nameof(AdicionaAutor), autor);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace DesafioCasaDoCodigo.Repositories
             return _context.Categorias.Any(c => c.Nome == categoria.Nome);
         }
 
-        public void Save(Categoria categoria)
+        public void Salva(Categoria categoria)
         {
             _context.Categorias.Add(categoria);
             _context.SaveChanges();

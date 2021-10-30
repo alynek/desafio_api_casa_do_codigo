@@ -12,7 +12,7 @@ namespace DesafioCasaDoCodigo.Repositories
         {
             _context = context;
         }
-        public void Save(Autor autor)
+        public void Salva(Autor autor)
         {
             _context.Autores.Add(autor);
             _context.SaveChanges();
