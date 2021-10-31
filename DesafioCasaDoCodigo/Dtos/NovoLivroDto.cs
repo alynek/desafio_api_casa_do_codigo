@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DesafioCasaDoCodigo.Models;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
+using DesafioCasaDoCodigo.Utility.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace DesafioCasaDoCodigo.Dtos
@@ -14,7 +17,7 @@ namespace DesafioCasaDoCodigo.Dtos
         public string Subtitulo { get; set; }
 
         [Range(20, double.MaxValue)]
-        public double Preco { get; set; }
+        public decimal Preco { get; set; }
 
         [Required]
         public string Conteudo { get; set; }
@@ -31,5 +34,16 @@ namespace DesafioCasaDoCodigo.Dtos
         [Required]
         [DataType(DataType.Upload)]
         public IFormFile Capa { get; set; }
+
+        [Required]
+        public int AutorId { get; set; }
+
+        public Livro NovoLivro(IAutorRepository autorRepository, IUploader uploader)
+        {
+            Autor autor = autorRepository.ObterPorid(AutorId);
+            string linkCapaLivro = uploader.Upload(Capa);
+
+            return new Livro(Titulo, Subtitulo, Preco, Conteudo, Sumario, NumeroPaginas, Isbn, linkCapaLivro, autor);
+        }
     }
 }

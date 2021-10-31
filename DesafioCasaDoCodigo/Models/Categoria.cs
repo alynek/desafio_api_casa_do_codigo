@@ -5,6 +5,7 @@ namespace DesafioCasaDoCodigo.Models
     public class Categoria
     {
         [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required]

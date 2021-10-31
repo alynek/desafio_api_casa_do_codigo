@@ -2,14 +2,16 @@
 using DesafioCasaDoCodigo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioCasaDoCodigo.Migrations
 {
     [DbContext(typeof(DesafioContext))]
-    partial class DesafioContextModelSnapshot : ModelSnapshot
+    [Migration("20211031153808_AdicionaLivro")]
+    partial class AdicionaLivro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,9 +61,6 @@ namespace DesafioCasaDoCodigo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Conteudo")
                         .IsRequired()
                         .HasColumnType("text");
@@ -96,18 +95,7 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutorId");
-
                     b.ToTable("Livros");
-                });
-
-            modelBuilder.Entity("DesafioCasaDoCodigo.Models.Livro", b =>
-                {
-                    b.HasOne("DesafioCasaDoCodigo.Models.Autor", "Autor")
-                        .WithMany()
-                        .HasForeignKey("AutorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

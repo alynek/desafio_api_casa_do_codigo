@@ -1,6 +1,7 @@
 ﻿using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
+using System.Linq;
 
 namespace DesafioCasaDoCodigo.Repositories
 {
@@ -12,6 +13,12 @@ namespace DesafioCasaDoCodigo.Repositories
         {
             _context = context;
         }
+
+        public Autor ObterPorid(int id)
+        {
+            return _context.Autores.FirstOrDefault(a => a.Id == id);
+        }
+
         public void Salva(Autor autor)
         {
             _context.Autores.Add(autor);
