@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace DesafioCasaDoCodigo
 {
@@ -38,6 +39,8 @@ namespace DesafioCasaDoCodigo
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IUploader, Uploader>();
             services.AddScoped<ILivroRepository, LivroRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

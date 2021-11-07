@@ -1,6 +1,8 @@
 ﻿using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DesafioCasaDoCodigo.Repositories
@@ -12,6 +14,11 @@ namespace DesafioCasaDoCodigo.Repositories
         public LivroRepository(DesafioContext context)
         {
             _context = context;
+        }
+
+        public List<Livro> ObterTodos()
+        {
+            return _context.Livros.Include(a => a.Autor).ToList();
         }
 
         public void Salva(Livro livro)
