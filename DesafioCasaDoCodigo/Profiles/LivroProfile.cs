@@ -9,6 +9,7 @@ namespace DesafioCasaDoCodigo.Profiles
         public LivroProfile()
         {
             CreateMap<Livro, LivroLeituraDto>();
+            CreateMap<Livro, LivroDetalheDTO>();
         }
     }
 }

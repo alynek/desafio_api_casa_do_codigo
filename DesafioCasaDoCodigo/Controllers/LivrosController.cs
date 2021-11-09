@@ -1,4 +1,5 @@
-﻿using DesafioCasaDoCodigo.Dtos;
+﻿using AutoMapper;
+using DesafioCasaDoCodigo.Dtos;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility.Interfaces;
@@ -13,13 +14,15 @@ namespace DesafioCasaDoCodigo.Controllers
         private IUploader _uploader;
         private ILivroRepository _livroRepository;
         private IAutorRepository _autorRepository;
+        private IMapper _mapper;
 
         public LivrosController(IUploader uploader, ILivroRepository livroRepository,
-            IAutorRepository autorRepository)
+            IAutorRepository autorRepository, IMapper mapper)
         {
             _uploader = uploader;
             _livroRepository = livroRepository;
             _autorRepository = autorRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -34,6 +37,16 @@ namespace DesafioCasaDoCodigo.Controllers
             _livroRepository.Salva(livro);
 
             return CreatedAtAction(nameof(AdicionaLivro), livro);
+        }
+
+        [HttpGet("/{livroId:int}")]
+        public IActionResult DetalhesLivro(int livroId)
+        {
+            var livro = _livroRepository.ObterPorId(livroId);
+
+            if (livro is null) return NotFound();
+
+            return Ok(_mapper.Map<LivroDetalheDTO>(livro));
         }
     }
 }

@@ -16,6 +16,11 @@ namespace DesafioCasaDoCodigo.Repositories
             _context = context;
         }
 
+        public Livro ObterPorId(int livroId)
+        {
+            return _context.Livros.Include(a => a.Autor).FirstOrDefault(l => l.Id == livroId);
+        }
+
         public List<Livro> ObterTodos()
         {
             return _context.Livros.Include(a => a.Autor).ToList();
