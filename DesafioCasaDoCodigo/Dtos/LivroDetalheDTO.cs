@@ -1,4 +1,5 @@
 ﻿using DesafioCasaDoCodigo.Models;
+using Markdig;
 
 namespace DesafioCasaDoCodigo.Dtos
 {
@@ -11,7 +12,8 @@ namespace DesafioCasaDoCodigo.Dtos
         public decimal Preco { get; set; }
         public Autor Autor { get; set; }
         public string Conteudo { get; set; }
-        public string Sumario { get; set; }
+        public string SumarioOriginal { get; set; }
+        public string SumarioHtml { get; set; }
         public int NumeroPaginas { get; set; }
         public string Isbn { get; set; }
     }

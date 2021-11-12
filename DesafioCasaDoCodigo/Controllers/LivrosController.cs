@@ -3,6 +3,7 @@ using DesafioCasaDoCodigo.Dtos;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility.Interfaces;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioCasaDoCodigo.Controllers
@@ -45,6 +46,9 @@ namespace DesafioCasaDoCodigo.Controllers
             var livro = _livroRepository.ObterPorId(livroId);
 
             if (livro is null) return NotFound();
+
+            var livroDetalheDto = _mapper.Map<LivroDetalheDTO>(livro);
+            livroDetalheDto.SumarioHtml = Markdown.ToHtml(livro.Sumario);
 
             return Ok(_mapper.Map<LivroDetalheDTO>(livro));
         }
