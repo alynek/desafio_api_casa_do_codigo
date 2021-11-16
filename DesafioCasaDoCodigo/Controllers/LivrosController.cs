@@ -2,15 +2,10 @@
 using DesafioCasaDoCodigo.Dtos;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
+using DesafioCasaDoCodigo.Utility;
 using DesafioCasaDoCodigo.Utility.Interfaces;
 using Markdig;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 
 namespace DesafioCasaDoCodigo.Controllers
 {
@@ -23,14 +18,17 @@ namespace DesafioCasaDoCodigo.Controllers
         private IAutorRepository _autorRepository;
         private IMapper _mapper;
         public const string CookieName = "carrinho";
+        private Cookies _cookies;
 
         public LivrosController(IUploader uploader, ILivroRepository livroRepository,
-            IAutorRepository autorRepository, IMapper mapper)
+            IAutorRepository autorRepository, IMapper mapper,
+            Cookies cookies)
         {
             _uploader = uploader;
             _livroRepository = livroRepository;
             _autorRepository = autorRepository;
             _mapper = mapper;
+            _cookies = cookies;
         }
 
         [HttpPost]
@@ -61,31 +59,23 @@ namespace DesafioCasaDoCodigo.Controllers
         }
 
         [HttpPost("carrinho/{livroId:int}")]
-        public string AdicionaLivroCarrinho(int livroId)
+        public IActionResult AdicionaLivroCarrinho(int livroId)
         {
-            string cookie;
+
             Carrinho carrinho = new Carrinho();
 
             if (Request.Cookies.ContainsKey(CookieName))
             {
-                cookie = Request.Cookies[CookieName];
-                
-                var listaLivrosCarrinho = JsonConvert.DeserializeObject<List<LivroCarrinhoDto>>(cookie);
-                carrinho.livros.AddRange(listaLivrosCarrinho);
+                string cookie = Request.Cookies[CookieName];
+
+                carrinho.Cria(cookie);
             }
 
-            LivroCarrinhoDto livroCarrinhoDto = _mapper.Map<LivroCarrinhoDto>(_livroRepository.ObterPorId(livroId));
-            carrinho.Adiciona(livroCarrinhoDto);
+            carrinho.Adiciona(_mapper.Map<LivroCarrinhoDto>(_livroRepository.ObterPorId(livroId)));
 
-            cookie = System.Text.Json.JsonSerializer.Serialize(carrinho.livros);
+            _cookies.JsonSerialize(CookieName, Response, carrinho);
 
-            var options = new CookieOptions()
-            {
-                Path = "/",
-                HttpOnly = true
-            };
-            Response.Cookies.Append(CookieName, cookie, options);
-            return carrinho.ToString();
+            return CreatedAtAction(nameof(AdicionaLivroCarrinho), carrinho.livros);
         }
     }
 }

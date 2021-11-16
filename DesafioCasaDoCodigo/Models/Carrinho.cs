@@ -1,6 +1,6 @@
 ﻿using DesafioCasaDoCodigo.Dtos;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DesafioCasaDoCodigo.Models
 {
@@ -12,17 +12,10 @@ namespace DesafioCasaDoCodigo.Models
             livros.Add(livro);
         }
 
-        public override string ToString()
+        public void Cria(string cookie)
         {
-            StringBuilder builder = new StringBuilder("Carrinho: [livros=");
-
-            foreach (var livro in livros)
-            {
-                builder.Append(livro + ",");
-            }
-
-            builder.Append("]");
-            return builder.ToString();
+            var listaLivrosCarrinho = JsonConvert.DeserializeObject<List<LivroCarrinhoDto>>(cookie);
+            livros.AddRange(listaLivrosCarrinho);
         }
     }
 }

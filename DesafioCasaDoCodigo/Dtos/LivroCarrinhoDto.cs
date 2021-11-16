@@ -7,10 +7,5 @@ namespace DesafioCasaDoCodigo.Dtos
         public string Titulo { get; set; }
         public string LinkCapaLivro { get; set; }
         public decimal Preco { get; set; }
-
-        public override string ToString()
-        {
-            return $"[titulo= {Titulo}, preço= {Preco}, capa do livro= {LinkCapaLivro}]";
-        }
     }
 }
