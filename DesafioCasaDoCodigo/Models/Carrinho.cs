@@ -6,7 +6,7 @@ namespace DesafioCasaDoCodigo.Models
 {
     public class Carrinho
     {
-        public List<LivroCarrinhoDto> livros = new List<LivroCarrinhoDto>();
+        public SortedSet<LivroCarrinhoDto> livros = new SortedSet<LivroCarrinhoDto>();
         public void Adiciona(LivroCarrinhoDto livro)
         {
             livros.Add(livro);
@@ -15,7 +15,10 @@ namespace DesafioCasaDoCodigo.Models
         public void Cria(string cookie)
         {
             var listaLivrosCarrinho = JsonConvert.DeserializeObject<List<LivroCarrinhoDto>>(cookie);
-            livros.AddRange(listaLivrosCarrinho);
+            foreach (var livro in listaLivrosCarrinho)
+            {
+                livros.Add(livro);
+            }
         }
     }
 }
