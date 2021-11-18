@@ -1,6 +1,7 @@
 ﻿using DesafioCasaDoCodigo.Dtos;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DesafioCasaDoCodigo.Models
 {
@@ -9,7 +10,14 @@ namespace DesafioCasaDoCodigo.Models
         public SortedSet<LivroCarrinhoDto> livros = new SortedSet<LivroCarrinhoDto>();
         public void Adiciona(LivroCarrinhoDto livro)
         {
-            livros.Add(livro);
+            bool resultado = livros.Add(livro);
+
+            if (!resultado)
+            {
+                LivroCarrinhoDto livroExistente = livros.Where(l => l.Equals(livro)).FirstOrDefault();
+                livroExistente.IncrementaQuantidade();
+            }
+               
         }
 
         public void Cria(string cookie)
