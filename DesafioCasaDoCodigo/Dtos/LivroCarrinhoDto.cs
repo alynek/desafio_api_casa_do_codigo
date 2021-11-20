@@ -17,10 +17,6 @@ namespace DesafioCasaDoCodigo.Dtos
             {
                 return Preco * Quantidade;
             }
-            set
-            {
-
-            }
         }
 
         public int CompareTo(object obj)
