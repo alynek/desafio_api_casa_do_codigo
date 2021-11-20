@@ -1,7 +1,8 @@
 ﻿using DesafioCasaDoCodigo.Dtos;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DesafioCasaDoCodigo.Models
 {
@@ -17,12 +18,17 @@ namespace DesafioCasaDoCodigo.Models
                 LivroCarrinhoDto livroExistente = livros.Where(l => l.Equals(livro)).FirstOrDefault();
                 livroExistente.IncrementaQuantidade();
             }
-               
+
         }
 
         public void Cria(string cookie)
         {
-            var listaLivrosCarrinho = JsonConvert.DeserializeObject<List<LivroCarrinhoDto>>(cookie);
+            var options = new JsonSerializerOptions
+            {
+                NumberHandling = JsonNumberHandling.AllowReadingFromString
+            };
+
+            var listaLivrosCarrinho = JsonSerializer.Deserialize<List<LivroCarrinhoDto>>(cookie, options);
             foreach (var livro in listaLivrosCarrinho)
             {
                 livros.Add(livro);

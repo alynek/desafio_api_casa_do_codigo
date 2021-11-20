@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DesafioCasaDoCodigo.Dtos
 {
@@ -8,6 +9,19 @@ namespace DesafioCasaDoCodigo.Dtos
         public string LinkCapaLivro { get; set; }
         public decimal Preco { get; set; }
         public int Quantidade { get; set; } = 1;
+
+        [Range(20, double.MaxValue)]
+        public decimal Total
+        {
+            get
+            {
+                return Preco * Quantidade;
+            }
+            set
+            {
+
+            }
+        }
 
         public int CompareTo(object obj)
         {
