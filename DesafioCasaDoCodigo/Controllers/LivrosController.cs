@@ -2,7 +2,6 @@
 using DesafioCasaDoCodigo.Dtos;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
-using DesafioCasaDoCodigo.Utility;
 using DesafioCasaDoCodigo.Utility.Interfaces;
 using Markdig;
 using Microsoft.AspNetCore.Mvc;
@@ -17,18 +16,15 @@ namespace DesafioCasaDoCodigo.Controllers
         private ILivroRepository _livroRepository;
         private IAutorRepository _autorRepository;
         private IMapper _mapper;
-        public const string CookieName = "carrinho";
-        private Cookies _cookies;
+
 
         public LivrosController(IUploader uploader, ILivroRepository livroRepository,
-            IAutorRepository autorRepository, IMapper mapper,
-            Cookies cookies)
+            IAutorRepository autorRepository, IMapper mapper)
         {
             _uploader = uploader;
             _livroRepository = livroRepository;
             _autorRepository = autorRepository;
             _mapper = mapper;
-            _cookies = cookies;
         }
 
         [HttpPost]
@@ -56,26 +52,6 @@ namespace DesafioCasaDoCodigo.Controllers
             livroDetalheDto.SumarioHtml = Markdown.ToHtml(livro.Sumario);
 
             return Ok(_mapper.Map<LivroDetalheDto>(livro));
-        }
-
-        [HttpPost("carrinho/{livroId:int}")]
-        public IActionResult AdicionaLivroCarrinho(int livroId)
-        {
-
-            Carrinho carrinho = new Carrinho();
-
-            if (Request.Cookies.ContainsKey(CookieName))
-            {
-                string cookie = Request.Cookies[CookieName];
-
-                carrinho.Cria(cookie);
-            }
-
-            carrinho.Adiciona(_mapper.Map<LivroCarrinhoDto>(_livroRepository.ObterPorId(livroId)));
-
-            _cookies.JsonSerialize(CookieName, Response, carrinho);
-
-            return CreatedAtAction(nameof(AdicionaLivroCarrinho), carrinho.livros);
         }
     }
 }

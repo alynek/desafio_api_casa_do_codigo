@@ -11,13 +11,7 @@ namespace DesafioCasaDoCodigo.Dtos
         public int Quantidade { get; set; } = 1;
 
         [Range(20, double.MaxValue)]
-        public decimal Total
-        {
-            get
-            {
-                return Preco * Quantidade;
-            }
-        }
+        public decimal Total{ get{return Preco * Quantidade;}}
 
         public int CompareTo(object obj)
         {
