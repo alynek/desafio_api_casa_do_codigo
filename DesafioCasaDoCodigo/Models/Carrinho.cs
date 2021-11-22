@@ -1,8 +1,11 @@
 ﻿using DesafioCasaDoCodigo.Dtos;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Xunit;
 
 namespace DesafioCasaDoCodigo.Models
 {
@@ -33,6 +36,15 @@ namespace DesafioCasaDoCodigo.Models
             {
                 livros.Add(livro);
             }
+        }
+
+        public void Atualiza(LivroCarrinhoDto livro, [Range(1, int.MaxValue)] int novaQuantidade)
+        {
+            Assert.True(novaQuantidade > 0, "A quantidade de atualização tem que ser maior que zero");
+            LivroCarrinhoDto possivelItem = livros.Where(l => l.Equals(livro)).FirstOrDefault();
+
+            Assert.True(possivelItem != null, "Você não deveria atualizar um livro que não foi colocado no carrinho");
+            possivelItem.AtualizaQuantidade(novaQuantidade);
         }
     }
 }

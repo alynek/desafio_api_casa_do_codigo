@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Xunit;
 
 namespace DesafioCasaDoCodigo.Dtos
 {
@@ -11,7 +12,7 @@ namespace DesafioCasaDoCodigo.Dtos
         public int Quantidade { get; set; } = 1;
 
         [Range(20, double.MaxValue)]
-        public decimal Total{ get{return Preco * Quantidade;}}
+        public decimal Total { get { return Preco * Quantidade; } }
 
         public int CompareTo(object obj)
         {
@@ -40,8 +41,8 @@ namespace DesafioCasaDoCodigo.Dtos
 
             LivroCarrinhoDto outroLivro = obj as LivroCarrinhoDto;
 
-            return this.Titulo == outroLivro.Titulo 
-                    && this.LinkCapaLivro == outroLivro.LinkCapaLivro 
+            return this.Titulo == outroLivro.Titulo
+                    && this.LinkCapaLivro == outroLivro.LinkCapaLivro
                     && this.Preco == outroLivro.Preco;
         }
 
@@ -50,6 +51,12 @@ namespace DesafioCasaDoCodigo.Dtos
             return this.Titulo.GetHashCode()
                 ^ this.LinkCapaLivro.GetHashCode()
                 ^ this.Preco.GetHashCode();
+        }
+
+        internal void AtualizaQuantidade(int novaQuantidade)
+        {
+            Assert.True(novaQuantidade > 0, "A quantidade de atualização tem que ser maior que zero");
+            this.Quantidade = novaQuantidade;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DesafioCasaDoCodigo.Controllers
             _cookies = cookies;
         }
 
-        [HttpPost("carrinho/{livroId:int}")]
+        [HttpPost("{livroId:int}")]
         public IActionResult AdicionaLivroCarrinho(int livroId)
         {
 
@@ -44,9 +44,16 @@ namespace DesafioCasaDoCodigo.Controllers
             return CreatedAtAction(nameof(AdicionaLivroCarrinho), carrinho.livros);
         }
 
-        public void Atualiza()
+        [HttpPut("{livroId:int}")]
+        public IActionResult Atualiza(int livroId, [FromQuery] int novaQuantidade)
         {
+            Carrinho carrinho = new Carrinho();
+            carrinho.Cria(Request.Cookies[CookieName]);
 
+            LivroCarrinhoDto livroDto = _mapper.Map<LivroCarrinhoDto>(_livroRepository.ObterPorId(livroId));
+            carrinho.Atualiza(livroDto, novaQuantidade);
+            _cookies.JsonSerialize(CookieName, Response, carrinho);
+            return Ok(carrinho.livros);
         }
     }
 }
