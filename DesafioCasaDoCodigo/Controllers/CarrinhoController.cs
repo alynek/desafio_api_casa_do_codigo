@@ -55,5 +55,11 @@ namespace DesafioCasaDoCodigo.Controllers
             _cookies.JsonSerialize(CookieName, Response, carrinho);
             return Ok(carrinho.livros);
         }
+
+        [HttpPost("finaliza")]
+        public string Processa([FromForm] DadosCompradorDto compradorDto)
+        {
+            return "validou os dados";
+        }
     }
 }
