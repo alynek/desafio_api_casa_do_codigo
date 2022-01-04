@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DesafioCasaDoCodigo.Models;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
@@ -6,6 +8,7 @@ namespace DesafioCasaDoCodigo.Dtos
 {
     public class LivroCarrinhoDto : IComparable
     {
+        public int Id { get; set; }
         public string Titulo { get; set; }
         public string LinkCapaLivro { get; set; }
         public decimal Preco { get; set; }
@@ -41,22 +44,29 @@ namespace DesafioCasaDoCodigo.Dtos
 
             LivroCarrinhoDto outroLivro = obj as LivroCarrinhoDto;
 
-            return this.Titulo == outroLivro.Titulo
+            return this.Id == outroLivro.Id
+                    && this.Titulo == outroLivro.Titulo
                     && this.LinkCapaLivro == outroLivro.LinkCapaLivro
                     && this.Preco == outroLivro.Preco;
         }
 
         public override int GetHashCode()
         {
-            return this.Titulo.GetHashCode()
+            return this.Id.GetHashCode() 
+                ^ this.Titulo.GetHashCode()
                 ^ this.LinkCapaLivro.GetHashCode()
                 ^ this.Preco.GetHashCode();
         }
 
-        internal void AtualizaQuantidade(int novaQuantidade)
+        public void AtualizaQuantidade(int novaQuantidade)
         {
             Assert.True(novaQuantidade > 0, "A quantidade de atualização tem que ser maior que zero");
             this.Quantidade = novaQuantidade;
+        }
+
+        public ItemCompra NovoItemCompra(ILivroRepository livroRepository)
+        {
+            return new ItemCompra(livroRepository.ObterPorId(this.Id), this.Quantidade, this.Preco, this.Total, this.Titulo);
         }
     }
 }

@@ -4,6 +4,8 @@ using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DesafioCasaDoCodigo.Controllers
 {
@@ -57,9 +59,18 @@ namespace DesafioCasaDoCodigo.Controllers
         }
 
         [HttpPost("finaliza")]
-        public string Processa([FromForm] DadosCompradorDto compradorDto)
+        public IActionResult Finaliza([FromForm] DadosCompradorDto compradorDto)
         {
-            return "validou os dados";
+            Carrinho carrinho = new Carrinho();
+            carrinho.Cria(Request.Cookies[CookieName]);
+
+            HashSet<ItemCompra> itensCompra = carrinho.livros
+                .Select(itemCarrinho =>
+                {
+                    return itemCarrinho.NovoItemCompra(_livroRepository);
+                }).ToHashSet();
+
+            return CreatedAtAction(nameof(Finaliza), itensCompra);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DesafioCasaDoCodigo.Dtos;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -46,5 +47,10 @@ namespace DesafioCasaDoCodigo.Models
             Assert.True(possivelItem != null, "Você não deveria atualizar um livro que não foi colocado no carrinho");
             possivelItem.AtualizaQuantidade(novaQuantidade);
         }
+
+        //public HashSet<ItemCompra> GeraItensCompra(ILivroRepository _livroRepository)
+        //{
+        //    return 
+        //}
     }
 }

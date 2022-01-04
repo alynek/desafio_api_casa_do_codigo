@@ -5,11 +5,12 @@ namespace DesafioCasaDoCodigo.Data
 {
     public class DesafioContext : DbContext
     {
-        public DesafioContext(DbContextOptions<DesafioContext> opt) : base(opt){}
+        public DesafioContext(DbContextOptions<DesafioContext> opt) : base(opt) { }
 
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Livro> Livros { get; set; }
+        public DbSet<ItemCompra> ItensCompras {get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
