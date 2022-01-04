@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioCasaDoCodigo.Migrations
 {
     [DbContext(typeof(DesafioContext))]
-    [Migration("20211031153808_AdicionaLivro")]
-    partial class AdicionaLivro
+    [Migration("20220104010727_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,13 +61,16 @@ namespace DesafioCasaDoCodigo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("AutorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Conteudo")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Isbn")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("LinkCapaLivro")
                         .IsRequired()
@@ -95,7 +98,24 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AutorId");
+
+                    b.HasIndex("Isbn")
+                        .IsUnique();
+
+                    b.HasIndex("Titulo")
+                        .IsUnique();
+
                     b.ToTable("Livros");
+                });
+
+            modelBuilder.Entity("DesafioCasaDoCodigo.Models.Livro", b =>
+                {
+                    b.HasOne("DesafioCasaDoCodigo.Models.Autor", "Autor")
+                        .WithMany()
+                        .HasForeignKey("AutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

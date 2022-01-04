@@ -68,7 +68,7 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.Property<string>("Isbn")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("LinkCapaLivro")
                         .IsRequired()
@@ -97,6 +97,12 @@ namespace DesafioCasaDoCodigo.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AutorId");
+
+                    b.HasIndex("Isbn")
+                        .IsUnique();
+
+                    b.HasIndex("Titulo")
+                        .IsUnique();
 
                     b.ToTable("Livros");
                 });
