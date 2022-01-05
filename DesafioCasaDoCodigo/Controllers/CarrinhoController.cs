@@ -64,11 +64,7 @@ namespace DesafioCasaDoCodigo.Controllers
             Carrinho carrinho = new Carrinho();
             carrinho.Cria(Request.Cookies[CookieName]);
 
-            HashSet<ItemCompra> itensCompra = carrinho.livros
-                .Select(itemCarrinho =>
-                {
-                    return itemCarrinho.NovoItemCompra(_livroRepository);
-                }).ToHashSet();
+            HashSet<ItemCompra> itensCompra = carrinho.GeraItensCompra(_livroRepository);
 
             return CreatedAtAction(nameof(Finaliza), itensCompra);
         }

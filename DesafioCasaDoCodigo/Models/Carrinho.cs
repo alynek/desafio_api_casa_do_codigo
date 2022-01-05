@@ -48,9 +48,12 @@ namespace DesafioCasaDoCodigo.Models
             possivelItem.AtualizaQuantidade(novaQuantidade);
         }
 
-        //public HashSet<ItemCompra> GeraItensCompra(ILivroRepository _livroRepository)
-        //{
-        //    return 
-        //}
+        public HashSet<ItemCompra> GeraItensCompra(ILivroRepository _livroRepository)
+        {
+            return livros.Select(itemCarrinho =>
+            {
+                return itemCarrinho.NovoItemCompra(_livroRepository);
+            }).ToHashSet();
+        }
     }
 }
