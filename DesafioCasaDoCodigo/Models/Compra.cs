@@ -1,11 +1,10 @@
-﻿using DesafioCasaDoCodigo.Models;
-using DesafioCasaDoCodigo.Utility;
+﻿using DesafioCasaDoCodigo.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DesafioCasaDoCodigo.Dtos
+namespace DesafioCasaDoCodigo.Models
 {
     public class Compra
     {

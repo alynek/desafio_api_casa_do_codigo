@@ -5,7 +5,6 @@ using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DesafioCasaDoCodigo.Controllers
 {
@@ -14,14 +13,16 @@ namespace DesafioCasaDoCodigo.Controllers
     public class CarrinhoController : ControllerBase
     {
         private ILivroRepository _livroRepository;
+        private ICompraRepository _compraRepository;
         private IMapper _mapper;
         private Cookies _cookies;
         public const string CookieName = "carrinho";
 
-        public CarrinhoController(ILivroRepository livroRepository, IMapper mapper,
-            Cookies cookies)
+        public CarrinhoController(ILivroRepository livroRepository, ICompraRepository compraRepository,
+            IMapper mapper, Cookies cookies)
         {
             _livroRepository = livroRepository;
+            _compraRepository = compraRepository;
             _mapper = mapper;
             _cookies = cookies;
         }
@@ -67,6 +68,7 @@ namespace DesafioCasaDoCodigo.Controllers
             HashSet<ItemCompra> itensCompra = carrinho.GeraItensCompra(_livroRepository);
 
             Compra novaCompra = compradorDto.NovaCompra(itensCompra);
+            _compraRepository.Salva(novaCompra);
 
             return CreatedAtAction(nameof(Finaliza), novaCompra);
         }
