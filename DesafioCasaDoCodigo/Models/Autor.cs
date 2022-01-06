@@ -16,14 +16,15 @@ namespace DesafioCasaDoCodigo.Models
         [Url]
         public string LinkGithub { get; set; }
 
-        private DateTime DataCriacao = DateTime.Now;
+        public DateTime DataCriacao { get; set;}
 
         public Autor(){}
 
         public Autor(string nome, string linkGithub)
         {
-            this.Nome = nome;
-            this.LinkGithub = linkGithub;
+            Nome = nome;
+            LinkGithub = linkGithub;
+            DataCriacao = DateTime.Now;
         }
 
         public override string ToString()
