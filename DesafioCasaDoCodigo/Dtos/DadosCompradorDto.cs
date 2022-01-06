@@ -1,4 +1,6 @@
-﻿using DesafioCasaDoCodigo.Utility;
+﻿using DesafioCasaDoCodigo.Models;
+using DesafioCasaDoCodigo.Utility;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DesafioCasaDoCodigo.Dtos
@@ -17,5 +19,10 @@ namespace DesafioCasaDoCodigo.Dtos
         [Required]
         public string Endereco { get; set; }
         public string Complemento { get; set; }
+
+        public Compra NovaCompra(HashSet<ItemCompra> itensCompra)
+        {
+            return new Compra(Email, Documento, Endereco, itensCompra);
+        }
     }
 }

@@ -66,7 +66,9 @@ namespace DesafioCasaDoCodigo.Controllers
 
             HashSet<ItemCompra> itensCompra = carrinho.GeraItensCompra(_livroRepository);
 
-            return CreatedAtAction(nameof(Finaliza), itensCompra);
+            Compra novaCompra = compradorDto.NovaCompra(itensCompra);
+
+            return CreatedAtAction(nameof(Finaliza), novaCompra);
         }
     }
 }
