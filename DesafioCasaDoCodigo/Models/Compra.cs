@@ -16,6 +16,7 @@ namespace DesafioCasaDoCodigo.Models
         [CpfCnpj]
         public string Documento { get; set; }
         public string Endereco { get; set; }
+        public string Complemento { get; set; }
 
         [MinLength(1)]
         [NotMapped]

@@ -22,7 +22,11 @@ namespace DesafioCasaDoCodigo.Dtos
 
         public Compra NovaCompra(HashSet<ItemCompra> itensCompra)
         {
-            return new Compra(Email, Documento, Endereco, itensCompra);
+            Compra compra = new Compra(Email, Documento, Endereco, itensCompra);
+
+            if (!(string.IsNullOrEmpty(this.Complemento))) compra.Complemento = this.Complemento;
+
+            return compra;
         }
     }
 }
