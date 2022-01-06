@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 namespace DesafioCasaDoCodigo.Migrations
 {
-    public partial class Initial : Migration
+    public partial class RemoveItensCompraDoBanco : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +15,8 @@ namespace DesafioCasaDoCodigo.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: false),
-                    LinkGithub = table.Column<string>(nullable: false)
+                    LinkGithub = table.Column<string>(nullable: false),
+                    DataCriacao = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,6 +34,22 @@ namespace DesafioCasaDoCodigo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categorias", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Compras",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(nullable: true),
+                    Documento = table.Column<string>(nullable: true),
+                    Endereco = table.Column<string>(nullable: true),
+                    DataCriacao = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Compras", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,6 +107,9 @@ namespace DesafioCasaDoCodigo.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Categorias");
+
+            migrationBuilder.DropTable(
+                name: "Compras");
 
             migrationBuilder.DropTable(
                 name: "Livros");
