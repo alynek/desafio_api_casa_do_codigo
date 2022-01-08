@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Xunit;
 
 namespace DesafioCasaDoCodigo.Models
 {
@@ -17,6 +18,19 @@ namespace DesafioCasaDoCodigo.Models
         public string Documento { get; set; }
         public string Endereco { get; set; }
         public string Complemento { get; set; }
+
+#nullable enable
+        private Cupom? _cupom { get; set; }
+        public Cupom? Cupom 
+        { 
+            get => _cupom;
+            set
+            {
+                Assert.True(value?.EhValido(), "Você passou um cupom inválido");
+                _cupom = value;
+            }
+        }
+#nullable disable
 
         [MinLength(1)]
         [NotMapped]

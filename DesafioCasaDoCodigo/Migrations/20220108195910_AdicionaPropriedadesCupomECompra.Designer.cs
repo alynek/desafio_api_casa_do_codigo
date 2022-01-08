@@ -3,14 +3,16 @@ using System;
 using DesafioCasaDoCodigo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioCasaDoCodigo.Migrations
 {
     [DbContext(typeof(DesafioContext))]
-    partial class DesafioContextModelSnapshot : ModelSnapshot
+    [Migration("20220108195910_AdicionaPropriedadesCupomECompra")]
+    partial class AdicionaPropriedadesCupomECompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +168,7 @@ namespace DesafioCasaDoCodigo.Migrations
             modelBuilder.Entity("DesafioCasaDoCodigo.Models.Compra", b =>
                 {
                     b.HasOne("DesafioCasaDoCodigo.Models.Cupom", "Cupom")
-                        .WithMany()
+                        .WithMany("Compra")
                         .HasForeignKey("CupomId");
                 });
 

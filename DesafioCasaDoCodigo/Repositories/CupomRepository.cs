@@ -1,6 +1,7 @@
 ﻿using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
+using System.Linq;
 
 namespace DesafioCasaDoCodigo.Repositories
 {
@@ -17,6 +18,11 @@ namespace DesafioCasaDoCodigo.Repositories
         {
             _context.Cupons.Add(cupom);
             _context.SaveChanges();
+        }
+
+        public Cupom ObterPorCodigo(string codigoCupom)
+        {
+            return _context.Cupons.FirstOrDefault(c => c.Codigo == codigoCupom);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
@@ -26,6 +27,11 @@ namespace DesafioCasaDoCodigo.Models
             Codigo = codigo;
             Expiracao = expiracao;
             Desconto = desconto;
+        }
+
+        public bool EhValido()
+        {
+            return Expiracao.CompareTo(DateTime.Now) >= 0;
         }
     }
 }

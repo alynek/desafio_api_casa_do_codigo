@@ -14,15 +14,17 @@ namespace DesafioCasaDoCodigo.Controllers
     {
         private ILivroRepository _livroRepository;
         private ICompraRepository _compraRepository;
+        private ICupomRepository _cupomRepository;
         private IMapper _mapper;
         private Cookies _cookies;
         public const string CookieName = "carrinho";
 
-        public CarrinhoController(ILivroRepository livroRepository, ICompraRepository compraRepository,
+        public CarrinhoController(ILivroRepository livroRepository, ICompraRepository compraRepository, ICupomRepository cupomRepository,
             IMapper mapper, Cookies cookies)
         {
             _livroRepository = livroRepository;
             _compraRepository = compraRepository;
+            _cupomRepository = cupomRepository;
             _mapper = mapper;
             _cookies = cookies;
         }
@@ -67,7 +69,7 @@ namespace DesafioCasaDoCodigo.Controllers
 
             HashSet<ItemCompra> itensCompra = carrinho.GeraItensCompra(_livroRepository);
 
-            Compra novaCompra = compradorDto.NovaCompra(itensCompra);
+            Compra novaCompra = compradorDto.NovaCompra(itensCompra, _cupomRepository);
             _compraRepository.Salva(novaCompra);
 
             return CreatedAtAction(nameof(Finaliza), novaCompra);

@@ -1,4 +1,5 @@
 ﻿using DesafioCasaDoCodigo.Models;
+using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,12 +20,16 @@ namespace DesafioCasaDoCodigo.Dtos
         [Required]
         public string Endereco { get; set; }
         public string Complemento { get; set; }
+#nullable enable
+        public string? CodigoCupom { get; set; }
+#nullable disable
 
-        public Compra NovaCompra(HashSet<ItemCompra> itensCompra)
+        public Compra NovaCompra(HashSet<ItemCompra> itensCompra, ICupomRepository _cupomRepository)
         {
             Compra compra = new Compra(Email, Documento, Endereco, itensCompra);
 
             if (!(string.IsNullOrEmpty(this.Complemento))) compra.Complemento = this.Complemento;
+            if (!(string.IsNullOrEmpty(this.CodigoCupom))) compra.Cupom = _cupomRepository.ObterPorCodigo(this.CodigoCupom);
 
             return compra;
         }
