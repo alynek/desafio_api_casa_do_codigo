@@ -40,6 +40,7 @@ namespace DesafioCasaDoCodigo
             services.AddScoped<IUploader, Uploader>();
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<ICompraRepository, CompraRepository>();
+            services.AddScoped<ICupomRepository, CupomRepository>();
             services.AddScoped<Cookies>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
