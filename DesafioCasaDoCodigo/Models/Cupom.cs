@@ -11,14 +11,14 @@ namespace DesafioCasaDoCodigo.Models
         public int Id { get; set; }
 
         [Required]
-        public string Codigo;
+        public string Codigo { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Required]
-        public DateTime Expiracao;
+        public DateTime Expiracao { get; set; }
 
         [Range(0.0, 0.25)]
-        public decimal Desconto;
+        public decimal Desconto { get; set; }
 
         public Cupom(string codigo, DateTime expiracao, decimal desconto)
         {
