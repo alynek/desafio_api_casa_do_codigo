@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20220106003050_Initial.Designer.cs" />
     <Compile Remove="Migrations\20220108202642_RemoveCupomIdDaCompra.cs" />
     <Compile Remove="Migrations\20220108202642_RemoveCupomIdDaCompra.Designer.cs" />
+    <Compile Remove="Migrations\20220109213117_AdicionaComprasNoCupom.cs" />
+    <Compile Remove="Migrations\20220109213117_AdicionaComprasNoCupom.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +18,7 @@
     <PackageReference Include="Caelum.Stella.CSharp" Version="1.4.7" />
     <PackageReference Include="Markdig.Signed" Version="0.26.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>

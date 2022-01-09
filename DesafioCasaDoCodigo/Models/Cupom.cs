@@ -21,6 +21,8 @@ namespace DesafioCasaDoCodigo.Models
         [Range(0.0, 0.25)]
         public decimal Desconto { get; set; }
 
+        public ICollection<Compra> Compras { get; set; }
+
         public Cupom(string codigo, DateTime expiracao, decimal desconto)
         {
             Assert.True(desconto.CompareTo(new decimal(0.25)) <= 0, "Desconto foi maior que 0.25!");
