@@ -12,6 +12,7 @@ namespace DesafioCasaDoCodigo.Data
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Livro> Livros { get; set; }
         public DbSet<Compra> Compras {get; set; }
+        public DbSet<ItemCompra> Itens {get; set; }
         public DbSet<Cupom> Cupons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

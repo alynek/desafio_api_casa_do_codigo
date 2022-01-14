@@ -3,14 +3,16 @@ using System;
 using DesafioCasaDoCodigo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioCasaDoCodigo.Migrations
 {
     [DbContext(typeof(DesafioContext))]
-    partial class DesafioContextModelSnapshot : ModelSnapshot
+    [Migration("20220109220556_CriaRelacionamentoDOitemCompra")]
+    partial class CriaRelacionamentoDOitemCompra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,7 +141,7 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.HasIndex("LivroId");
 
-                    b.ToTable("Itens");
+                    b.ToTable("ItemCompra");
                 });
 
             modelBuilder.Entity("DesafioCasaDoCodigo.Models.Livro", b =>

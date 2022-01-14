@@ -1,6 +1,7 @@
 ﻿using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,7 +30,15 @@ namespace DesafioCasaDoCodigo.Dtos
             Compra compra = new Compra(Email, Documento, Endereco, itensCompra);
 
             if (!(string.IsNullOrEmpty(this.Complemento))) compra.Complemento = this.Complemento;
-            if (!(string.IsNullOrEmpty(this.CodigoCupom))) compra.Cupom = _cupomRepository.ObterPorCodigo(this.CodigoCupom);
+           
+            if (!(string.IsNullOrEmpty(this.CodigoCupom))) {
+
+                var cupom =_cupomRepository.ObterPorCodigo(this.CodigoCupom);
+                if (cupom is null) throw new ArgumentException("Esse cupom não existe");
+                if (!cupom.EhValido()) throw new ArgumentException("Esse cupom Expirou");
+
+                compra.Cupom = cupom;
+            }
 
             return compra;
         }

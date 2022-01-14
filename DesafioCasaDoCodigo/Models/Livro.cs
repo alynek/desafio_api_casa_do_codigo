@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DesafioCasaDoCodigo.Models
 {
@@ -39,6 +40,7 @@ namespace DesafioCasaDoCodigo.Models
 
         [Required]
         public Autor Autor { get; set; }
+        public ICollection<ItemCompra> Itens { get; set; }
 
         public Livro() { }
 

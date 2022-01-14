@@ -4,6 +4,7 @@ using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Utility;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace DesafioCasaDoCodigo.Controllers
@@ -69,10 +70,17 @@ namespace DesafioCasaDoCodigo.Controllers
 
             HashSet<ItemCompra> itensCompra = carrinho.GeraItensCompra(_livroRepository);
 
-            Compra novaCompra = compradorDto.NovaCompra(itensCompra, _cupomRepository);
-            _compraRepository.Salva(novaCompra);
+            try
+            {
+                Compra novaCompra = compradorDto.NovaCompra(itensCompra, _cupomRepository);
+                _compraRepository.Salva(novaCompra);
 
-            return CreatedAtAction(nameof(Finaliza), novaCompra);
+                return CreatedAtAction(nameof(Finaliza), novaCompra);
+            }
+            catch(ArgumentException e)
+            {
+                return NotFound(e.Message);
+            } 
         }
     }
 }

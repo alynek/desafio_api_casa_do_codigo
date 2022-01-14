@@ -4,8 +4,16 @@ namespace DesafioCasaDoCodigo.Models
 {
     public class ItemCompra
     {
+        [Key]
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         public Livro Livro { get; set; }
+        
+        [Required]
+        public Compra Compra { get; set; }
+
         public int Quantidade { get; set; }
 
         [Required]
@@ -17,6 +25,8 @@ namespace DesafioCasaDoCodigo.Models
         public decimal Total { get; set; }
 
         public string Titulo { get; set; }
+
+        public ItemCompra(){}
         public ItemCompra(Livro livro, int quantidade, decimal preco, decimal total, string titulo)
         {
             Livro = livro;
