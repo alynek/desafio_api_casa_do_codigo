@@ -1,6 +1,8 @@
 using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Repositories;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
+using DesafioCasaDoCodigo.Services;
+using DesafioCasaDoCodigo.Services.Interfaces;
 using DesafioCasaDoCodigo.Utility;
 using DesafioCasaDoCodigo.Utility.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -41,6 +43,8 @@ namespace DesafioCasaDoCodigo
             services.AddScoped<ILivroRepository, LivroRepository>();
             services.AddScoped<ICompraRepository, CompraRepository>();
             services.AddScoped<ICupomRepository, CupomRepository>();
+            services.AddScoped<IPagamentoPaypalRepository, PagamentoPaypalRepository>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<Cookies>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

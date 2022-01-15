@@ -2,6 +2,6 @@
 {
     public enum EPaypalStatus
     {
-        sucesso, falha
+        sucesso = 1, falha
     }
 }
