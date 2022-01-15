@@ -20,7 +20,7 @@ namespace DesafioCasaDoCodigo.Services
             Console.WriteLine(novoPagamento);
         }
         
-        public void NotificarCompraParaAdminCdcPagamentoFalhou(PagamentoPaypal novoPagamento)
+        public void NotificaAdminCdcPagamentoFalhou(PagamentoPaypal novoPagamento)
         {
             Console.WriteLine("Mandar email para admin da casa do código dizendo que a compra falhou");
             Console.WriteLine(novoPagamento);

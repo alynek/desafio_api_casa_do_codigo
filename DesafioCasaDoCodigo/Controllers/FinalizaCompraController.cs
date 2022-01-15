@@ -11,33 +11,20 @@ namespace DesafioCasaDoCodigo.Controllers
     public class FinalizaCompraController : ControllerBase
     {
         private readonly ICompraRepository _compraRepository;
-        private readonly IPagamentoPaypalRepository _pagamentoRepository;
-        private readonly IEmailService _email;
+        private readonly ITentativaPagamentoService _tentativaPagamentoService;
 
         public FinalizaCompraController(ICompraRepository compraRepository,
-            IPagamentoPaypalRepository pagamentoRepository, IEmailService email)
+            ITentativaPagamentoService tentativaPagamentoService)
         {
             _compraRepository = compraRepository;
-            _pagamentoRepository = pagamentoRepository;
-            _email = email;
+            _tentativaPagamentoService = tentativaPagamentoService;
         }
 
         [HttpPost("pagamento/{compraId:int}")]
         public void Pagamento(int compraId, [FromForm] NovoPagamentoPaypalDto novaCompraPaypalDto)
         {
             Compra compraExistente = _compraRepository.Obter(compraId);
-            PagamentoPaypal novoPagamento = novaCompraPaypalDto.NovoPagamento(compraExistente);
-            _pagamentoRepository.Salva(novoPagamento);
-
-            if (novoPagamento.Sucesso())
-            {
-                _email.NotificarCompraParaAdminCdc(novoPagamento);
-                _email.NotificarCompradorComNovaCompra(novoPagamento);
-            }
-            else
-            {
-                _email.NotificarCompraParaAdminCdcPagamentoFalhou(novoPagamento);
-            }
+            _tentativaPagamentoService.Executar(compraExistente, novaCompraPaypalDto);
         }
     }
 }

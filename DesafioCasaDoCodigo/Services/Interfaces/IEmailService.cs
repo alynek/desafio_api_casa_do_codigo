@@ -8,6 +8,6 @@ namespace DesafioCasaDoCodigo.Services.Interfaces
 
         void NotificarCompradorComNovaCompra(PagamentoPaypal novoPagamento);
 
-        void NotificarCompraParaAdminCdcPagamentoFalhou(PagamentoPaypal novoPagamento);
+        void NotificaAdminCdcPagamentoFalhou(PagamentoPaypal novoPagamento);
     }
 }
