@@ -2,9 +2,8 @@
 
 namespace DesafioCasaDoCodigo.Repositories.Interfaces
 {
-    public interface ICompraRepository
+    public interface IPagamentoPaypalRepository
     {
-        void Salva(Compra compra);
-        Compra Obter(int compraId);
+        void Salva(PagamentoPaypal pagamento);
     }
 }

@@ -18,5 +18,10 @@ namespace DesafioCasaDoCodigo.Repositories
             _context.Compras.Add(compra);
             _context.SaveChanges();
         }
+
+        public Compra Obter(int compraId)
+        {
+            return _context.Compras.Find(compraId);
+        }
     }
 }
