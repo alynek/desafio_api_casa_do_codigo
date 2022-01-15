@@ -45,6 +45,7 @@ namespace DesafioCasaDoCodigo
             services.AddScoped<ICupomRepository, CupomRepository>();
             services.AddScoped<IPagamentoPaypalRepository, PagamentoPaypalRepository>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ITentativaPagamentoService, TentativaPagamentoService>();
             services.AddScoped<Cookies>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
