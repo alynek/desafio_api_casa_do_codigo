@@ -2,7 +2,9 @@
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace DesafioCasaDoCodigo.Controllers
 {
@@ -21,10 +23,19 @@ namespace DesafioCasaDoCodigo.Controllers
         }
 
         [HttpPost("pagamento/{compraId:int}")]
-        public void Pagamento(int compraId, [FromForm] NovoPagamentoPaypalDto novaCompraPaypalDto)
+        public IActionResult Pagamento(int compraId, [FromForm] NovoPagamentoPaypalDto novaCompraPaypalDto)
         {
-            Compra compraExistente = _compraRepository.Obter(compraId);
-            _tentativaPagamentoService.Executar(compraExistente, novaCompraPaypalDto);
+            try
+            {
+
+                Compra compraExistente = _compraRepository.Obter(compraId);
+                _tentativaPagamentoService.Executar(compraExistente, novaCompraPaypalDto);
+                return Ok(compraExistente);
+            }
+            catch(ArgumentException e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
     }
 }

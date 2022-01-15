@@ -2,6 +2,7 @@
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
 using DesafioCasaDoCodigo.Services.Interfaces;
+using System;
 
 namespace DesafioCasaDoCodigo.Services
 {
@@ -20,7 +21,11 @@ namespace DesafioCasaDoCodigo.Services
         {
             PagamentoPaypal novoPagamento = novaCompraPaypalDto.NovoPagamento(compraExistente);
 
-            ValidaIdTransacaoESalva(novoPagamento);
+            var idTransacaoJaExiste = _pagamentoRepository.IdTransacaoJaExiste(novoPagamento.IdTransacao);
+
+            if (idTransacaoJaExiste) throw new ArgumentException("O Id " + novoPagamento.IdTransacao + " já foi processado");
+
+            _pagamentoRepository.Salva(novoPagamento);
 
             if (novoPagamento.Sucesso())
             {
@@ -30,20 +35,6 @@ namespace DesafioCasaDoCodigo.Services
             else
             {
                 _email.NotificaAdminCdcPagamentoFalhou(novoPagamento);
-            }
-        }
-
-        public void ValidaIdTransacaoESalva(PagamentoPaypal novoPagamento)
-        {
-            var idTransacaoJaExiste = _pagamentoRepository.IdTransacaoJaExiste(novoPagamento.IdTransacao);
-
-            if (idTransacaoJaExiste)
-            {
-                novoPagamento.Status = Enums.EPaypalStatus.falha;
-            }
-            else
-            {
-                _pagamentoRepository.Salva(novoPagamento);
             }
         }
     }
