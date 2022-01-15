@@ -3,14 +3,16 @@ using System;
 using DesafioCasaDoCodigo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DesafioCasaDoCodigo.Migrations
 {
     [DbContext(typeof(DesafioContext))]
-    partial class DesafioContextModelSnapshot : ModelSnapshot
+    [Migration("20220115173731_AdicionaCompraAoEntity")]
+    partial class AdicionaCompraAoEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,7 +209,7 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.Property<string>("IdTransacao")
                         .IsRequired()
-                        .HasColumnType("varchar(767)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -215,9 +217,6 @@ namespace DesafioCasaDoCodigo.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompraId");
-
-                    b.HasIndex("IdTransacao")
-                        .IsUnique();
 
                     b.ToTable("PagamentosPaypal");
                 });

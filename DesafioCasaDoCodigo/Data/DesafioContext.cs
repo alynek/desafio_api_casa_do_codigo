@@ -14,6 +14,7 @@ namespace DesafioCasaDoCodigo.Data
         public DbSet<Compra> Compras {get; set; }
         public DbSet<ItemCompra> Itens {get; set; }
         public DbSet<Cupom> Cupons { get; set; }
+        public DbSet<PagamentoPaypal> PagamentosPaypal { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,10 @@ namespace DesafioCasaDoCodigo.Data
 
             modelBuilder.Entity<Livro>()
                 .HasIndex(l => l.Isbn)
+                .IsUnique();
+
+            modelBuilder.Entity<PagamentoPaypal>()
+                .HasIndex(p => p.IdTransacao)
                 .IsUnique();
         }
     }
