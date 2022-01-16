@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20220108202642_RemoveCupomIdDaCompra.Designer.cs" />
     <Compile Remove="Migrations\20220109213117_AdicionaComprasNoCupom.cs" />
     <Compile Remove="Migrations\20220109213117_AdicionaComprasNoCupom.Designer.cs" />
+    <Compile Remove="Migrations\20220116011216_AdicionaPagamentoNaCompra.cs" />
+    <Compile Remove="Migrations\20220116011216_AdicionaPagamentoNaCompra.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

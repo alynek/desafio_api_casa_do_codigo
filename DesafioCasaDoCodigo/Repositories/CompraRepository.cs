@@ -1,6 +1,8 @@
 ﻿using DesafioCasaDoCodigo.Data;
 using DesafioCasaDoCodigo.Models;
 using DesafioCasaDoCodigo.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DesafioCasaDoCodigo.Repositories
 {
@@ -19,9 +21,11 @@ namespace DesafioCasaDoCodigo.Repositories
             _context.SaveChanges();
         }
 
-        public Compra Obter(int compraId)
+        public async Task<Compra> Obter(int compraId)
         {
-            return _context.Compras.Find(compraId);
+            return await _context.Compras
+                .Include(c => c.PagamentoPaypal)
+                .FirstOrDefaultAsync(c => c.Id == compraId);
         }
     }
 }

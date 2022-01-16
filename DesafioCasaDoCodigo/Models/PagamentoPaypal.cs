@@ -18,6 +18,7 @@ namespace DesafioCasaDoCodigo.Models
 
         [Required]
         public Compra Compra { get; set; }
+        public int CompraId { get; set; }
 
         public PagamentoPaypal(){}
         public PagamentoPaypal(string idTransacao, EPaypalStatus status, Compra compraExistente)

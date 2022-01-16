@@ -5,6 +5,7 @@ using DesafioCasaDoCodigo.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace DesafioCasaDoCodigo.Controllers
 {
@@ -23,12 +24,12 @@ namespace DesafioCasaDoCodigo.Controllers
         }
 
         [HttpPost("pagamento/{compraId:int}")]
-        public IActionResult Pagamento(int compraId, [FromForm] NovoPagamentoPaypalDto novaCompraPaypalDto)
+        public async Task<IActionResult> Pagamento(int compraId, [FromForm] NovoPagamentoPaypalDto novaCompraPaypalDto)
         {
             try
             {
 
-                Compra compraExistente = _compraRepository.Obter(compraId);
+                Compra compraExistente = await _compraRepository.Obter(compraId);
                 _tentativaPagamentoService.Executar(compraExistente, novaCompraPaypalDto);
                 return Ok(compraExistente);
             }

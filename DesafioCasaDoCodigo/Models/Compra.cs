@@ -38,6 +38,8 @@ namespace DesafioCasaDoCodigo.Models
 
         public DateTime DataCriacao { get; set; }
 
+        public PagamentoPaypal PagamentoPaypal { get; set; }
+
         public Compra() { }
 
         public Compra(string email, string documento, string endereco, HashSet<ItemCompra> itensCompra)
@@ -53,6 +55,13 @@ namespace DesafioCasaDoCodigo.Models
             }
 
             DataCriacao = DateTime.Now;
+        }
+
+        public bool FoiPagaComSucesso()
+        {
+            if (PagamentoPaypal is null) return false;
+
+            return PagamentoPaypal.Sucesso();
         }
     }
 }

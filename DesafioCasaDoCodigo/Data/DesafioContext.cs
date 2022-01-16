@@ -33,6 +33,10 @@ namespace DesafioCasaDoCodigo.Data
             modelBuilder.Entity<PagamentoPaypal>()
                 .HasIndex(p => p.IdTransacao)
                 .IsUnique();
+
+            modelBuilder.Entity<Compra>()
+                .HasOne(c => c.PagamentoPaypal)
+                .WithOne(c => c.Compra);
         }
     }
 }

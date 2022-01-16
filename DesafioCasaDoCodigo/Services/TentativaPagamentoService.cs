@@ -25,6 +25,10 @@ namespace DesafioCasaDoCodigo.Services
 
             if (idTransacaoJaExiste) throw new ArgumentException("O Id " + novoPagamento.IdTransacao + " já foi processado");
 
+            if (compraExistente.FoiPagaComSucesso()) {
+                throw new ArgumentException("A compra de Id " + compraExistente.Id + " já foi processada com sucesso");
+            }
+
             _pagamentoRepository.Salva(novoPagamento);
 
             if (novoPagamento.Sucesso())

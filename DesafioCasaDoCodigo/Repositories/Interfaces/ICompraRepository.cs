@@ -1,10 +1,11 @@
 ﻿using DesafioCasaDoCodigo.Models;
+using System.Threading.Tasks;
 
 namespace DesafioCasaDoCodigo.Repositories.Interfaces
 {
     public interface ICompraRepository
     {
         void Salva(Compra compra);
-        Compra Obter(int compraId);
+        Task<Compra> Obter(int compraId);
     }
 }
