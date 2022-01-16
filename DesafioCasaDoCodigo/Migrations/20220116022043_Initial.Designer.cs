@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioCasaDoCodigo.Migrations
 {
     [DbContext(typeof(DesafioContext))]
-    [Migration("20220109220556_CriaRelacionamentoDOitemCompra")]
-    partial class CriaRelacionamentoDOitemCompra
+    [Migration("20220116022043_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -141,7 +141,7 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.HasIndex("LivroId");
 
-                    b.ToTable("ItemCompra");
+                    b.ToTable("Itens");
                 });
 
             modelBuilder.Entity("DesafioCasaDoCodigo.Models.Livro", b =>
@@ -198,6 +198,33 @@ namespace DesafioCasaDoCodigo.Migrations
                     b.ToTable("Livros");
                 });
 
+            modelBuilder.Entity("DesafioCasaDoCodigo.Models.PagamentoPaypal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompraId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdTransacao")
+                        .IsRequired()
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompraId")
+                        .IsUnique();
+
+                    b.HasIndex("IdTransacao")
+                        .IsUnique();
+
+                    b.ToTable("PagamentosPaypal");
+                });
+
             modelBuilder.Entity("DesafioCasaDoCodigo.Models.Compra", b =>
                 {
                     b.HasOne("DesafioCasaDoCodigo.Models.Cupom", "Cupom")
@@ -225,6 +252,15 @@ namespace DesafioCasaDoCodigo.Migrations
                     b.HasOne("DesafioCasaDoCodigo.Models.Autor", "Autor")
                         .WithMany()
                         .HasForeignKey("AutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DesafioCasaDoCodigo.Models.PagamentoPaypal", b =>
+                {
+                    b.HasOne("DesafioCasaDoCodigo.Models.Compra", "Compra")
+                        .WithOne("PagamentoPaypal")
+                        .HasForeignKey("DesafioCasaDoCodigo.Models.PagamentoPaypal", "CompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

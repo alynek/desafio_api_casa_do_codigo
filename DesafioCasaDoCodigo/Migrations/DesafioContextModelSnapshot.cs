@@ -214,7 +214,8 @@ namespace DesafioCasaDoCodigo.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompraId");
+                    b.HasIndex("CompraId")
+                        .IsUnique();
 
                     b.HasIndex("IdTransacao")
                         .IsUnique();
@@ -256,8 +257,8 @@ namespace DesafioCasaDoCodigo.Migrations
             modelBuilder.Entity("DesafioCasaDoCodigo.Models.PagamentoPaypal", b =>
                 {
                     b.HasOne("DesafioCasaDoCodigo.Models.Compra", "Compra")
-                        .WithMany()
-                        .HasForeignKey("CompraId")
+                        .WithOne("PagamentoPaypal")
+                        .HasForeignKey("DesafioCasaDoCodigo.Models.PagamentoPaypal", "CompraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
